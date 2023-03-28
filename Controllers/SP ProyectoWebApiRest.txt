@@ -1,0 +1,78 @@
+SP Products
+
+CREATE PROCEDURE sp_list_products
+(@p_ProductID int)
+AS
+BEGIN
+SELECT p.ProductID, p.ProductName, p.QuantityPerUnit, p.UnitPrice
+FROM Products p 
+WHERE p.ProductID = @p_ProductID  
+END
+_________________________________________________________________________________________________________________________
+
+CREATE PROCEDURE sp_save_products 
+(@p_ProductName nvarchar(50),
+@p_QuantityPerUnit nvarchar(50),
+@p_UnitPrice decimal)
+AS
+BEGIN
+INSERT INTO Products (ProductName, QuantityPerUnit, UnitPrice)
+VALUES(@p_ProductName, @p_QuantityPerUnit ,@p_UnitPrice)
+END
+GO
+_________________________________________________________________________________________________________________________
+
+CREATE PROCEDURE sp_edit_products
+(@p_ProductID int,
+@p_ProductName nvarchar(50) null,
+@p_QuantityPerUnit nvarchar(50) null,
+@p_UnitPrice decimal null)
+AS
+BEGIN
+UPDATE Products SET
+ProductName = isnull (@p_ProductName, ProductName),
+QuantityPerUnit = isnull (@p_QuantityPerUnit, QuantityPerUnit),
+UnitPrice = isnull(@p_UnitPrice, UnitPrice)
+WHERE ProductID = @p_ProductID
+END
+_________________________________________________________________________________________________________________________
+
+CREATE PROCEDURE sp_delete_products
+(@p_ProductID int)
+AS
+BEGIN
+DELETE
+FROM Products  
+WHERE ProductID = @p_ProductID  
+END
+
+-------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
+
+SP STOCK
+
+CREATE PROCEDURE sp_stock_completo 
+(@p_ProductID int)
+AS
+BEGIN
+SELECT  p.ProductID, p.ProductName, p.UnitsInStock, p.UnitsOnOrder, p.ReorderLevel
+FROM Products p
+WHERE p.ProductID = @p_ProductID
+END
+_________________________________________________________________________________________________________________________
+
+CREATE PROCEDURE sp_stock_actualizar
+(@p_ProductID int, 
+@p_UnitsInStock int)
+AS
+BEGIN
+UPDATE Products SET 
+UnitsInStock = UnitsInStock + @p_UnitsInStock 
+WHERE
+@p_ProductID = ProductID
+END
+_________________________________________________________________________________________________________________________
+
+
+
+
