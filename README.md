@@ -1,4 +1,4 @@
-<h1> 🎯 Proyect Manage Your Business 🎯</h1>
+<h1> 🎯 Proyecto Administración De Negocios 🎯</h1>
 - ApiRest usando Stored Procedures para gestionar los procesos CRUD en la base de datos.
 <br>
 - Habilitación de Cors para que la api pueda ser utilizada por terceros.
